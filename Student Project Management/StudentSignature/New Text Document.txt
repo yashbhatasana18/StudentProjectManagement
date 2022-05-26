@@ -1,0 +1,45 @@
+<Columns>
+                    <asp:TemplateField HeaderText="">
+                        <ItemTemplate>
+                            <asp:HyperLink ID="hlEdit" runat="server" NavigateUrl='<%# String.Concat("INS_DepartmentCoordinatorAddEdit.aspx?","departmentcoordinatorid=",Eval("DepartmentCoordinatorID")) %>'>
+                                <i class="icon-pencil"></i>
+                            </asp:HyperLink>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="">
+                        <ItemTemplate>
+                            <asp:HyperLink ID="hlCopy" runat="server" NavigateUrl='<%# String.Concat("INS_DepartmentCoordinatorAddEdit.aspx?","departmentcoordinatorid=",Eval("DepartmentCoordinatorID"),"&Copy=Y") %>'>
+                                <i class="icon-check"></i>
+                            </asp:HyperLink>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="">
+                        <ItemTemplate>
+                            <asp:HyperLink ID="hlView" runat="server" NavigateUrl='<%# String.Concat("INS_DepartmentCoordinatorView.aspx?","departmentcoordinatorid=",Eval("DepartmentCoordinatorID")) %>'>
+                                <i class="icon-eye-open"></i>
+                            </asp:HyperLink>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="">
+                        <ItemTemplate>
+                            <div style="width:40px">
+                                <input type="checkbox" id="cb" name="cb" value='<%#Eval("DepartmentCoordinatorID") %>'
+                                    runat="server" />
+                                <asp:ImageButton ID="btnDelete0" runat="server" CommandArgument='<%#Eval("DepartmentCoordinatorID") %>'
+                                    CommandName="DeleteRecord" OnClientClick="javascript:return confirm('Are you sure you want to delete record ? ');"
+                                    SkinID="GridDelete" ToolTip="Delete Record" />
+                            </div>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:BoundField DataField="DepartmentCoordinatorID" HeaderStyle-HorizontalAlign="Right"
+                        HeaderText="ID" ItemStyle-HorizontalAlign="Right" SortExpression="DepartmentCoordinatorID" />
+                    <asp:BoundField DataField="DepartmentName" HeaderText="Department" SortExpression="DepartmentName" />
+                    <asp:BoundField DataField="FacultyName" HeaderText="Faculty" SortExpression="Faculty Name" />
+                    <asp:BoundField DataField="AcademicYearName" HeaderText="Academic Year" SortExpression="AcademicYearName" />
+                    <%--<asp:BoundField DataField="InstituteCode" HeaderText="Inst." SortExpression="InstituteCode" />--%>
+                    <asp:BoundField DataField="Remarks" HeaderText="Remarks" SortExpression="Remarks" />
+                    <asp:BoundField DataField="Created" DataFormatString="{0:d-MM-yyyy}" HeaderText="Created"
+                        HtmlEncode="false" SortExpression="Created" />
+                    <asp:BoundField DataField="Modified" DataFormatString="{0:d-MM-yyyy}" HeaderText="Modified"
+                        HtmlEncode="false" SortExpression="Modified" />
+                </Columns>

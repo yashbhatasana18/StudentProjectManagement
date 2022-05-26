@@ -1,0 +1,122 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using DProject;
+using DProject.BAL;
+using Microsoft.Reporting.WebForms;
+
+public partial class AdminPanel_LOCRPT_Project_RPT_PRJ_ProjectListByGuide : System.Web.UI.Page
+{
+
+    #region Private Variables
+
+    private DataTable dtProjectListByGuide;
+
+    private dsProject objdsProject = new dsProject();
+
+    #endregion Private Variables
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (Session["UserID"] == null)
+        {
+            Response.Redirect("~/Login/Login.aspx");
+        }
+        if (!Page.IsPostBack)
+        {
+            FillDropDownList();
+            ShowProjectStatementListByGuide(Convert.ToString(Session["UserCatagory"]), Convert.ToInt32(Session["InstituteID"]), Convert.ToInt32(Session["DepartmentID"]), Convert.ToInt32(ddlGuide.SelectedValue));
+        }
+    }
+
+    #region Fill DropDownList
+
+    private void FillDropDownList()
+    {
+        CommonFillMethods.FillDropDownListFacultyID(ddlGuide, Convert.ToInt32(Session["InstituteID"]));
+    }
+
+    #endregion Fill DropDownList
+
+    #region ShowProjectStatementListByGuide
+
+    private void ShowProjectStatementListByGuide(String UserCatagory, Int32 InstituteID, Int32 DepartmentID, Int32 GuideID)
+    {
+        PRJ_ProjectBAL balPRJ_Project = new PRJ_ProjectBAL();
+        dtProjectListByGuide = balPRJ_Project.SelectProjectStatementListByGuide(UserCatagory, InstituteID, DepartmentID, GuideID);
+        FillDataSet();
+    }
+
+    #endregion ShowProjectStatementListByGuide
+
+    #region FillDataSet
+
+    private void FillDataSet()
+    {
+        objdsProject.dtProjectStatementListByGuide.Clear();
+
+        foreach (DataRow dr in dtProjectListByGuide.Rows)
+        {
+            dsProject.dtProjectStatementListByGuideRow drProjectStatementListByGuide = objdsProject.dtProjectStatementListByGuide.NewdtProjectStatementListByGuideRow();
+
+            if (!dr["EnrollmentNo"].Equals(System.DBNull.Value))
+                drProjectStatementListByGuide.EnrollmentNo = Convert.ToString(dr["EnrollmentNo"]);
+
+            if (!dr["RowNumber"].Equals(System.DBNull.Value))
+                drProjectStatementListByGuide.RowNumber = Convert.ToInt32(dr["RowNumber"]);
+
+            if (!dr["StudentName"].Equals(System.DBNull.Value))
+                drProjectStatementListByGuide.StudentName = Convert.ToString(dr["StudentName"]);
+
+            if (!dr["ProjectTitle"].Equals(System.DBNull.Value))
+                drProjectStatementListByGuide.ProjectTitle = Convert.ToString(dr["ProjectTitle"]);
+
+            if (!dr["TechnologyName"].Equals(System.DBNull.Value))
+                drProjectStatementListByGuide.TechnologyName = Convert.ToString(dr["TechnologyName"]);
+
+            if (!dr["ProjectCode"].Equals(System.DBNull.Value))
+                drProjectStatementListByGuide.ProjectCode = Convert.ToString(dr["ProjectCode"]);
+
+            if (!dr["GTUTeamNo"].Equals(System.DBNull.Value))
+                drProjectStatementListByGuide.GTUTeamNo = Convert.ToString(dr["GTUTeamNo"]);
+
+            if (!dr["DepartmentName"].Equals(System.DBNull.Value))
+                drProjectStatementListByGuide.DepartmentName = Convert.ToString(dr["DepartmentName"]);
+
+            if (!dr["FacultyName"].Equals(System.DBNull.Value))
+                drProjectStatementListByGuide.FacultyName = Convert.ToString(dr["FacultyName"]);
+
+            objdsProject.dtProjectStatementListByGuide.Rows.Add(drProjectStatementListByGuide);
+        }
+        SetReportParameters();
+
+        this.rvProjectStatementListByGuide.LocalReport.DataSources.Clear();
+        this.rvProjectStatementListByGuide.LocalReport.DataSources.Add(new ReportDataSource("dtProjectStatementListByGuide", (DataTable)objdsProject.dtProjectStatementListByGuide));
+    }
+
+    #endregion FillDataSet
+
+    #region SetReportParameters
+
+    private void SetReportParameters()
+    {
+        String InstituteName = Session["InstituteName"].ToString();
+        String rptTitle = "Project Statement List";
+        String Department = Session["DepartmentName"].ToString();
+        ReportParameter rpInstituteName = new ReportParameter("InstituteName", InstituteName);
+        ReportParameter rprptTitle = new ReportParameter("rptTitle", rptTitle);
+        ReportParameter rptDepartment = new ReportParameter("Department", Department);
+        this.rvProjectStatementListByGuide.LocalReport.SetParameters(new ReportParameter[] { rpInstituteName, rprptTitle, rptDepartment });
+    }
+
+    #endregion SetReportParameters
+
+    protected void ddlGuide_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        ShowProjectStatementListByGuide(Convert.ToString(Session["UserCatagory"]), Convert.ToInt32(Session["InstituteID"]), Convert.ToInt32(Session["DepartmentID"]), Convert.ToInt32(ddlGuide.SelectedValue));
+    }
+}

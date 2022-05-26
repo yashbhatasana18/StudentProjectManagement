@@ -1,0 +1,140 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using DExam.BAL;
+using Microsoft.Reporting.WinForms;
+using DExam.Class;
+
+namespace DExam.LOCRPT.ExamViva
+{
+    public partial class RPT_EXM_Viva_BillSummary : Form
+    {
+        #region 10 0 Private Variables
+
+        private DataTable dtBillSummary;
+        private ExamViva objExamViva = new ExamViva();
+
+        #endregion 10 0 Private Variables
+
+        #region 12 0 Constructor
+
+        public RPT_EXM_Viva_BillSummary()
+        {
+            InitializeComponent();
+        }
+
+        #endregion 12 0 Constructor
+
+        #region 13 0 Button Show
+
+        private void btnShow_Click(object sender, EventArgs e)
+        {
+            ShowBillSummary();
+        }
+
+        #endregion 13 0 Button Show
+
+        #region 14 0 LoadEvent
+
+        private void RPT_EXM_Viva_BillSummary_Load(object sender, EventArgs e)
+        {
+            FillComboBoxes();
+        }
+
+        #endregion 14 0 LoadEvent
+
+        #region 14 0 ShowBillSummary
+
+        private void ShowBillSummary()
+        {
+            EXM_ExamVivaBAL balEXM_ExamViva = new EXM_ExamVivaBAL();
+            dtBillSummary = balEXM_ExamViva.SelectBillSummary(Convert.ToInt32(cmbExamID.SelectedValue));
+            FillDataSet();
+        }
+
+        #endregion 14 0 ShowBillSummary
+
+        #region 15 0 FillDataSet
+
+        private void FillDataSet()
+        {
+            objExamViva.dtBillSummary.Clear();
+
+            foreach (DataRow dr in dtBillSummary.Rows)
+            {
+                ExamViva.dtBillSummaryRow drBillSummary = objExamViva.dtBillSummary.NewdtBillSummaryRow();
+
+                if (!dr["ExamVivaID"].Equals(System.DBNull.Value))
+                    drBillSummary.ExamVivaID = Convert.ToInt32(dr["ExamVivaID"]);
+
+                if (!dr["DepartmentName"].Equals(System.DBNull.Value))
+                    drBillSummary.DepartmentName = Convert.ToString(dr["DepartmentName"]);
+
+                if (!dr["ExamDate"].Equals(System.DBNull.Value))
+                    drBillSummary.ExamDate = Convert.ToString(dr["ExamDate"]);
+
+                if (!dr["SubjectCode"].Equals(System.DBNull.Value))
+                    drBillSummary.SubjectCode = Convert.ToString(dr["SubjectCode"]);
+
+                if (!dr["SubjectName"].Equals(System.DBNull.Value))
+                    drBillSummary.SubjectName = Convert.ToString(dr["SubjectName"]);
+
+                if (!dr["FacultyName"].Equals(System.DBNull.Value))
+                    drBillSummary.FacultyName = Convert.ToString(dr["FacultyName"]);
+
+                if (!dr["Duty"].Equals(System.DBNull.Value))
+                    drBillSummary.Duty = Convert.ToString(dr["Duty"]);
+
+                if (!dr["Remun"].Equals(System.DBNull.Value))
+                    drBillSummary.Remun = Convert.ToDecimal(dr["Remun"]);
+
+                if (!dr["TADA"].Equals(System.DBNull.Value))
+                    drBillSummary.TADA = Convert.ToDecimal(dr["TADA"]);
+
+                if (!dr["TotalAmount"].Equals(System.DBNull.Value))
+                    drBillSummary.TotalAmount = Convert.ToDecimal(dr["TotalAmount"]);
+
+                objExamViva.dtBillSummary.Rows.Add(drBillSummary);
+            }
+            SetReportParameters();
+
+            this.reportViewer1.LocalReport.DataSources.Clear();
+            this.reportViewer1.LocalReport.DataSources.Add(new ReportDataSource("dtBillSummary", (DataTable)objExamViva.dtBillSummary));
+            this.reportViewer1.RefreshReport();
+        }
+
+        #endregion 15 0 FillDataSet
+
+        #region 16 0 SetReportParameters
+
+        private void SetReportParameters()
+        {
+            String HeaderLine1 = txtHeaderLine1.Text.Trim();
+            String HeaderLine2 = txtHeaderLine2.Text.Trim();
+            String HeaderLine3 = txtHeaderLine3.Text.Trim();
+            ReportParameter rpHeadeLine1 = new ReportParameter("HeaderLine1", HeaderLine1);
+            ReportParameter rpHeadeLine2 = new ReportParameter("HeaderLine2", HeaderLine2);
+            ReportParameter rpHeadeLine3 = new ReportParameter("HeaderLine3", HeaderLine3);
+
+            this.reportViewer1.LocalReport.SetParameters(new ReportParameter[] { rpHeadeLine1, rpHeadeLine2, rpHeadeLine3 });
+        }
+
+        #endregion 16 0 SetReportParameters
+
+        #region 17 0 FillComboBoxes
+
+        public void FillComboBoxes()
+        {
+            CommonFillMethods CFM = new CommonFillMethods();
+            CFM.FillcmbExamID_EXM_Exam(cmbExamID);
+        }
+
+        #endregion 17 0 FillComboBoxes
+
+    }
+}

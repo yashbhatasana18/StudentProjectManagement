@@ -1,0 +1,781 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="AdminMaster.master.cs" Inherits="AdminPanel_AdminMaster" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title>Student Project Management</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveClientUrl("~/Default/assets/global/plugins/font-awesome/css/font-awesome.min.css") %>" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveClientUrl("~/Default/assets/global/plugins/simple-line-icons/simple-line-icons.min.css") %>" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveClientUrl("~/Default/assets/global/plugins/bootstrap/css/bootstrap.min.css") %>" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveClientUrl("~/Default/assets/global/plugins/uniform/css/uniform.default.css") %>" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveClientUrl("~/Default/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css") %>" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveClientUrl("~/Default/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css") %>" rel="stylesheet" type="text/css" />
+    <!-- END GLOBAL MANDATORY STYLES -->
+
+    <link href="<%=ResolveClientUrl("~/Default/assets/global/plugins/select2/select2.css") %>" type="text/css" rel="stylesheet" />
+    <link href="<%=ResolveClientUrl("~/Default/assets/global/plugins/fullcalendar/fullcalendar.min.css") %>" rel="stylesheet" type="text/css" />
+
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    <link href="<%=ResolveClientUrl("~/Default/assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css") %>" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveClientUrl("~/Default/assets/global/plugins/fancybox/source/jquery.fancybox.css") %>" rel="stylesheet" />
+    <link href="<%=ResolveClientUrl("~/Default/assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs2.css") %>" rel="stylesheet" type="text/css" />
+    <link href="<%= ResolveClientUrl("~/Default/assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css") %>" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveClientUrl("~/Default/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css") %>" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveClientUrl("~/Default/assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css") %>" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveClientUrl("~/Default/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css") %>" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveClientUrl("~/Default/assets/global/plugins/fullcalendar/fullcalendar.min.css") %>" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveClientUrl("~/Default/assets/global/plugins/jqvmap/jqvmap/jqvmap.css") %>" rel="stylesheet" type="text/css" />
+    <link href="<%= ResolveClientUrl("~/Default/assets/global/plugins/clockface/css/clockface.css") %>" rel="stylesheet" type="text/css" />
+    <link href="<%= ResolveClientUrl("~/Default/assets/global/plugins/bootstrap-colorpicker/css/colorpicker.css") %>" rel="stylesheet" type="text/css" />
+    <!-- END PAGE LEVEL STYLES -->
+
+    <!-- BEGIN:File Upload Plugin CSS files-->
+    <link href="<%=ResolveClientUrl("~/Default/assets/global/plugins/jquery-file-upload/blueimp-gallery/blueimp-gallery.min.css") %>" rel="stylesheet" />
+    <link href="<%=ResolveClientUrl("~/Default/assets/global/plugins/jquery-file-upload/css/jquery.fileupload.css") %>" rel="stylesheet" />
+    <link href="<%=ResolveClientUrl("~/Default/assets/global/plugins/jquery-file-upload/css/jquery.fileupload-ui.css") %>" rel="stylesheet" />
+    <!-- END:File Upload Plugin CSS files-->
+
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    <link href="<%=ResolveClientUrl("~/Default/assets/admin/pages/css/inbox.css") %>" rel="stylesheet" type="text/css" />
+    <!-- END PAGE LEVEL STYLES -->
+
+    <!-- BEGIN THEME STYLES -->
+    <link href="<%=ResolveClientUrl("~/Default/assets/global/css/components.css") %>" id="style_components" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveClientUrl("~/Default/assets/global/css/plugins.css") %>" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveClientUrl("~/Default/assets/admin/layout/css/layout.css") %>" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveClientUrl("~/Default/assets/admin/layout/css/themes/darkblue.css") %>" id="style_color" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveClientUrl("~/Default/assets/admin/layout/css/custom.css") %>" rel="stylesheet" type="text/css" />
+
+    <style>
+        .portlet-title {
+            min-height: 42px !important;
+        }
+
+        .portlet.light > .portlet-title > .caption {
+            padding-bottom: 0px !important;
+        }
+
+        .portlet > .portlet-title {
+            margin-bottom: 0px !important;
+        }
+
+        .portlet.light > .portlet-title > .tools {
+            margin-bottom: 0px !important;
+            min-height: 0px !important;
+            padding-bottom: 0px !important;
+        }
+
+        .page-content-wrapper .page-content {
+            padding: 0px !important;
+        }
+
+        .page-title {
+            margin: 0px 0px 7px 5px !important;
+        }
+
+        .page-bar {
+            margin-bottom: 0px !important;
+        }
+
+        .portlet.light > .portlet-title > .actions {
+            padding-bottom: 0px !important;
+        }
+
+        .portlet > .portlet-title > .actions > .btn {
+            padding: 7px 12px !important;
+        }
+
+        .form .form-section {
+            margin-top: 8px !important;
+        }
+
+        html {
+            overflow: scroll;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            width: 0px; /* Remove scrollbar space */
+            background: transparent; /* Optional: just make scrollbar invisible */
+        }
+        /* Optional: show position indicator in red */
+        ::-webkit-scrollbar-thumb {
+            background: darkgray;
+        }
+    </style>
+
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="favicon.ico" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+
+</head>
+<body class="page-header-fixed page-content-white page-sidebar-fixed">
+    <form id="form1" runat="server">
+        <!-- BEGIN HEADER -->
+        <div class="page-header navbar navbar-fixed-top">
+            <!-- BEGIN HEADER INNER -->
+            <div class="page-header-inner">
+                <!-- BEGIN LOGO -->
+                <div class="page-logo" style="padding-top: 14px">
+                    <span class="h5" style="color: orange">Student </span><span style="color: white" class="h5">Project </span><span style="color: green" class="h5">Management</span>
+                    <%--<span class="h3" style="color: tomato">S</span><span style="color: white" class="h3">PM</span>--%>
+                    <div class="menu-toggler sidebar-toggler hide">
+                        <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+                    </div>
+                </div>
+
+                <!-- END LOGO -->
+                <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+                <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"></a>
+                <!-- END RESPONSIVE MENU TOGGLER -->
+                <!-- BEGIN TOP NAVIGATION MENU -->
+                <div class="top-menu">
+
+                    <ul class="nav navbar-nav pull-right">
+                        <!-- BEGIN NOTIFICATION DROPDOWN -->
+                        <li class="dropdown dropdown-user">
+                            <asp:DropDownList ID="ddlAcademicYearID" runat="server" CssClass="form-control" AutoPostBack="True"
+                                OnSelectedIndexChanged="ddlAcademicYearID_SelectedIndexChanged">
+                            </asp:DropDownList>
+                        </li>
+                        <li class="dropdown dropdown-user">
+                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                <i class="fa fa-user"></i>
+                                <span class="username username-on-mobile">Welcome /
+                                    <asp:Label ID="lblUser" runat="server"></asp:Label></span>
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-default">
+                                <li>
+                                    <asp:LinkButton ID="lbtnChangePassword" runat="server" OnClick="lbtnChangePassword_Click">
+                                        <i class="icon-key"></i>Change Password</asp:LinkButton>
+                                </li>
+                                <li>
+                                    <asp:LinkButton ID="lbtnLogout" runat="server" OnClick="lbtnLogout_Click"><i class="icon-lock"></i>Logout</asp:LinkButton>
+                                </li>
+                            </ul>
+                            <!-- END QUICK SIDEBAR TOGGLER -->
+                        </li>
+                    </ul>
+                </div>
+                <!-- END TOP NAVIGATION MENU -->
+            </div>
+            <!-- END HEADER INNER -->
+        </div>
+        <!-- END HEADER -->
+        <div class="clearfix">
+        </div>
+        <!-- BEGIN CONTAINER -->
+        <div class="page-container">
+            <!-- BEGIN SIDEBAR -->
+            <div class="page-sidebar-wrapper">
+                <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+                <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+                <div class="page-sidebar navbar-collapse collapse">
+                    <!-- BEGIN SIDEBAR MENU -->
+                    <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+                    <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+                    <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+                    <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+                    <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+                    <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+                    <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                        <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                        <li class="sidebar-toggler-wrapper">
+                            <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                            <div class="sidebar-toggler">
+                            </div>
+
+                            <!-- END SIDEBAR TOGGLER BUTTON -->
+                        </li>
+                        <br />
+                        <li>
+                            <asp:HyperLink ID="hlDefault" NavigateUrl="~/AdminPanel/Default.aspx" runat="server">
+                                <i class="fa fa-dashboard ("></i>
+                                <span class="title">Dashboard</span>
+                            </asp:HyperLink>
+                        </li>
+
+                        <li>
+                            <a href="javascript:;">
+                                <i class="icon-folder"></i>
+                                <span class="title">Master</span>
+                                <span class="selected"></span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+
+                                <li>
+                                    <asp:HyperLink ID="hlAcademicYear" NavigateUrl="~/AdminPanel/Master/MST_AcademicYear/MST_AcademicYearList.aspx" runat="server">
+                                        <i class="icon-calendar"></i>
+                                        <span class="title">Academic Year</span>
+                                    </asp:HyperLink>
+                                </li>
+                                <li>
+                                    <asp:HyperLink ID="hlCity" NavigateUrl="~/AdminPanel/Master/MST_City/MST_CityList.aspx" runat="server">
+                                        <i class="fa fa-building-o"></i>
+                                        <span class="title">City</span>
+                                    </asp:HyperLink>
+                                </li>
+                                <li>
+                                    <asp:HyperLink ID="hlDepartment" NavigateUrl="~/AdminPanel/Master/MST_Department/MST_DepartmentList.aspx" runat="server">
+                                        <i class="fa fa-university"></i>
+                                        <span class="title">Department</span>
+                                    </asp:HyperLink>
+                                </li>
+                                <li>
+                                    <asp:HyperLink ID="hlFaculty" NavigateUrl="~/AdminPanel/Master/MST_Faculty/MST_FacultyList.aspx" runat="server">
+                                        <i class="icon-users"></i>
+                                        <span class="title">Faculty</span>
+                                    </asp:HyperLink>
+                                </li>
+                                <li>
+                                    <asp:HyperLink ID="hlInstitute" NavigateUrl="~/AdminPanel/Master/MST_Institute/MST_InstituteList.aspx" runat="server">
+                                        <i class="fa fa-university"></i>
+                                        <span class="title">Institute</span>
+                                    </asp:HyperLink>
+                                </li>
+                                <li>
+                                    <asp:HyperLink ID="hlStudent" NavigateUrl="~/AdminPanel/Master/MST_Student/MST_StudentList.aspx" runat="server">
+                                        <i class="icon-users"></i>
+                                        <span class="title">Student</span>
+                                    </asp:HyperLink>
+                                </li>
+                                <li>
+                                    <asp:HyperLink ID="hlStatus" NavigateUrl="~/AdminPanel/Master/MST_Status/MST_StatusList.aspx" runat="server">
+                                        <i class="icon-bar-chart"></i>
+                                        <span class="title">Status</span>
+                                    </asp:HyperLink>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="javascript:;">
+                                <i class="fa fa-users"></i>
+                                <span class="title">Meeting</span>
+                                <span class="selected"></span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <asp:HyperLink ID="hlMeeting" NavigateUrl="~/AdminPanel/Meeting/MET_Meeting/MET_MeetingList.aspx" runat="server">
+                                        <i class="fa fa-users"></i>
+                                        <span class="title">Meeting</span>
+                                    </asp:HyperLink>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="javascript:;">
+                                <i class="fa fa-file-text"></i>
+                                <span class="title">Document</span>
+                                <span class="selected"></span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <asp:HyperLink ID="hlDocumentType" NavigateUrl="~/AdminPanel/Document/DOC_DocumentType/DOC_DocumentTypeList.aspx" runat="server">
+                                        <i class="fa fa-files-o"></i>
+                                        <span class="title">Document Type</span>
+                                    </asp:HyperLink>
+                                </li>
+                                <li>
+                                    <asp:HyperLink ID="hlProjectDocument" NavigateUrl="~/AdminPanel/Document/DOC_ProjectDocument/DOC_ProjectDocumentList.aspx" runat="server">
+                                        <i class="fa fa-file-code-o"></i>
+                                        <span class="title">Project Document</span>
+                                    </asp:HyperLink>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="javascript:;">
+                                <i class="fa fa-file-archive-o"></i>
+                                <span class="title">Project</span>
+                                <span class="selected"></span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <asp:HyperLink ID="hlTechnology" NavigateUrl="~/AdminPanel/Project/PRJ_Technology/PRJ_TechnologyList.aspx" runat="server">
+                                        <i class="fa fa-laptop"></i>
+                                        <span class="title">Technology</span>
+                                    </asp:HyperLink>
+                                </li>
+                                <li>
+                                    <asp:HyperLink ID="hlGuide" NavigateUrl="~/AdminPanel/Project/PRJ_Guide/PRJ_GuideList.aspx" runat="server">
+                                        <i class="fa fa-users"></i>
+                                        <span class="title">Guide</span>
+                                    </asp:HyperLink>
+                                </li>
+                                <li>
+                                    <asp:HyperLink ID="hlProject" NavigateUrl="~/AdminPanel/Project/PRJ_Project/PRJ_ProjectList.aspx" runat="server">
+                                        <i class="fa fa-file-archive-o"></i>
+                                        <span class="title">Project</span>
+                                    </asp:HyperLink>
+                                </li>
+                                <li>
+                                    <asp:HyperLink ID="hlAssignProject" NavigateUrl="~/AdminPanel/Project/PRJ_AssignProject/PRJ_AssignProjectList.aspx" runat="server">
+                                        <i class="fa fa-file-powerpoint-o"></i>
+                                        <span class="title">Assign Project</span>
+                                    </asp:HyperLink>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="javascript:;">
+                                <i class="fa fa-cogs"></i>
+                                <span class="title">Work</span>
+                                <span class="selected"></span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <asp:HyperLink ID="hlWorkAssign" NavigateUrl="~/AdminPanel/Work/WRK_WorkAssigned/WRK_WorkAssignedList.aspx" runat="server">
+                                        <i class="fa fa-files-o"></i>
+                                        <span class="title">Work Assign</span>
+                                    </asp:HyperLink>
+                                </li>
+                                <li>
+                                    <asp:HyperLink ID="hlProjectHistory" NavigateUrl="~/AdminPanel/Project/PRJ_ProjectHistory.aspx" runat="server">
+                                        <i class="fa fa-history"></i>
+                                        <span class="title">Project History</span>
+                                    </asp:HyperLink>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="javascript:;">
+                                <i class="fa fa-file-o"></i>
+                                <span class="title">Report</span>
+                                <span class="selected"></span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="javascript:;">
+                                        <i class="fa fa-file-o"></i>Document<span class="arrow"></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li>
+                                            <asp:HyperLink ID="hlRPTDocumentType" NavigateUrl="~/AdminPanel/LOCRPT/Document/RPT_DOC_DocumentType.aspx" runat="server">
+                                        <i class="fa fa-file-o"></i>
+                                        <span class="title">Document Type</span>
+                                            </asp:HyperLink>
+                                        </li>
+                                        <li>
+                                            <asp:HyperLink ID="hlRPTProjectWiseDocumentList" NavigateUrl="~/AdminPanel/LOCRPT/Document/RPT_DOC_ProjectWiseDocumentList.aspx" runat="server">
+                                        <i class="fa fa-file-o"></i>
+                                        <span class="title">Project Document List</span>
+                                            </asp:HyperLink>
+                                        </li>
+                                        <li>
+                                            <asp:HyperLink ID="hlRPTProjectDocumentDeadLineAchived" NavigateUrl="~/AdminPanel/LOCRPT/Document/RPT_DOC_ProjectDocumentDeadLineAchived.aspx" runat="server">
+                                        <i class="fa fa-file-o"></i>
+                                        <span class="title">Project Document DeadLine Achived</span>
+                                            </asp:HyperLink>
+                                        </li>
+                                        <li>
+                                            <asp:HyperLink ID="hlRPTProjectWiseDocumentListAfterDeadLine" NavigateUrl="~/AdminPanel/LOCRPT/Document/RPT_DOC_ProjectWiseDocumentListAfterDeadLine.aspx" runat="server">
+                                        <i class="fa fa-file-o"></i>
+                                        <span class="title">Project Document List After DeadLine</span>
+                                            </asp:HyperLink>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <a href="javascript:;">
+                                        <i class="fa fa-file-o"></i>Meeting<span class="arrow"></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li>
+                                            <asp:HyperLink ID="hlRPTDateWiseMeeting" NavigateUrl="~/AdminPanel/LOCRPT/Meeting/RPT_MET_DateWiseMeeting.aspx" runat="server">
+                                        <i class="fa fa-file-o"></i>
+                                        <span class="title">Date Wise Meeting</span>
+                                            </asp:HyperLink>
+                                        </li>
+                                        <li>
+                                            <asp:HyperLink ID="hlRPTProjectWiseMeeting" NavigateUrl="~/AdminPanel/LOCRPT/Meeting/RPT_MET_ProjectWiseMeeting.aspx" runat="server">
+                                        <i class="fa fa-file-o"></i>
+                                        <span class="title">Project Wise Meeting</span>
+                                            </asp:HyperLink>
+                                        </li>
+                                        <li>
+                                            <asp:HyperLink ID="hlRPTStudentWiseMeeting" NavigateUrl="~/AdminPanel/LOCRPT/Meeting/RPT_MET_StudentWiseMeeting.aspx" runat="server">
+                                        <i class="fa fa-file-o"></i>
+                                        <span class="title">Student Wise Meeting</span>
+                                            </asp:HyperLink>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <a href="javascript:;">
+                                        <i class="fa fa-file-o"></i>Project<span class="arrow"></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li>
+                                            <asp:HyperLink ID="hlRPT_PRJ_ProjectList" NavigateUrl="~/AdminPanel/LOCRPT/Project/RPT_PRJ_ProjectList.aspx" runat="server">
+                                        <i class="fa fa-file-o"></i>
+                                        <span class="title">Project List</span>
+                                            </asp:HyperLink>
+                                        </li>
+                                        <li>
+                                            <asp:HyperLink ID="hlRPTProjectCompletionStatus" NavigateUrl="~/AdminPanel/LOCRPT/Project/RPT_PRJ_ProjectCompletionStatus.aspx" runat="server">
+                                        <i class="fa fa-file-o"></i>
+                                        <span class="title">Project Completion Status</span>
+                                            </asp:HyperLink>
+                                        </li>
+                                        <li>
+                                            <asp:HyperLink ID="hlRPTProjectListByProjectType" NavigateUrl="~/AdminPanel/LOCRPT/Project/RPT_PRJ_ProjectListByProjectType.aspx" runat="server">
+                                        <i class="fa fa-file-o"></i>
+                                        <span class="title">Project List By Project Type</span>
+                                            </asp:HyperLink>
+                                        </li>
+                                        <li>
+                                            <asp:HyperLink ID="hlRPTProjectListByTechnology" NavigateUrl="~/AdminPanel/LOCRPT/Project/RPT_PRJ_ProjectListByTechnology.aspx" runat="server">
+                                        <i class="fa fa-file-o"></i>
+                                        <span class="title">Project List By Technology</span>
+                                            </asp:HyperLink>
+                                        </li>
+                                        <li>
+                                            <asp:HyperLink ID="hlRPTProjectListSample" NavigateUrl="~/AdminPanel/LOCRPT/Project/RPT_PRJ_ProjectListSample.aspx" runat="server">
+                                        <i class="fa fa-file-o"></i>
+                                        <span class="title">Project List Sample</span>
+                                            </asp:HyperLink>
+                                        </li>
+                                        <li>
+                                            <asp:HyperLink ID="hlRPTProjectMarksList" NavigateUrl="~/AdminPanel/LOCRPT/Project/RPT_PRJ_ProjectMarksList.aspx" runat="server">
+                                        <i class="fa fa-file-o"></i>
+                                        <span class="title">Project Marks List</span>
+                                            </asp:HyperLink>
+                                        </li>
+                                        <li>
+                                            <asp:HyperLink ID="hlRPTProjectNotEntered" NavigateUrl="~/AdminPanel/LOCRPT/Project/RPT_PRJ_ProjectNotEntered.aspx" runat="server">
+                                        <i class="fa fa-file-o"></i>
+                                        <span class="title">Project Not Entered</span>
+                                            </asp:HyperLink>
+                                        </li>
+                                        <li>
+                                            <asp:HyperLink ID="hlRPTProjectStatement" NavigateUrl="~/AdminPanel/LOCRPT/Project/RPT_PRJ_ProjectStatement.aspx" runat="server">
+                                        <i class="fa fa-file-o"></i>
+                                        <span class="title">Project Statement</span>
+                                            </asp:HyperLink>
+                                        </li>
+                                        <li>
+                                            <asp:HyperLink ID="hlRPTProjectStatementList" NavigateUrl="~/AdminPanel/LOCRPT/Project/RPT_PRJ_ProjectStatementList.aspx" runat="server">
+                                        <i class="fa fa-file-o"></i>
+                                        <span class="title">Project Statement List</span>
+                                            </asp:HyperLink>
+                                        </li>
+                                        <li>
+                                            <asp:HyperLink ID="hlRPTProjectStatementListByGuide" NavigateUrl="~/AdminPanel/LOCRPT/Project/RPT_PRJ_ProjectStatementListByGuide.aspx" runat="server">
+                                        <i class="fa fa-file-o"></i>
+                                        <span class="title">Project Statement List By Guide</span>
+                                            </asp:HyperLink>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">
+                                        <i class="fa fa-file-o"></i>Work Assigned<span class="arrow"></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li>
+                                            <asp:HyperLink ID="hlRPTWorkAssigedListByProject" NavigateUrl="~/AdminPanel/LOCRPT/WorkAssigned/RPT_WRKA_WorkAssigedListByProject.aspx" runat="server">
+                                        <i class="fa fa-file-o"></i>
+                                        <span class="title">WorkAssiged List By Project</span>
+                                            </asp:HyperLink>
+                                        </li>
+                                        <li>
+                                            <asp:HyperLink ID="hlRPTWorkAssignedListByStudent" NavigateUrl="~/AdminPanel/LOCRPT/WorkAssigned/RPT_WRKA_WorkAssignedListByStudent.aspx" runat="server">
+                                        <i class="fa fa-file-o"></i>
+                                        <span class="title">WorkAssigned List By Student</span>
+                                            </asp:HyperLink>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper">
+                <div class="page-content">
+                    <div class="page-bar row" style="background-color: #f9f9f9">
+                        <div class="col-md-6">
+                            <h3 class="page-title">
+                                <asp:ContentPlaceHolder ID="cphPageHeader" runat="Server">
+                                </asp:ContentPlaceHolder>
+                            </h3>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="page-breadcrumb pull-right">
+                                <asp:ContentPlaceHolder ID="cphBreadCrumb" runat="server">
+                                </asp:ContentPlaceHolder>
+                            </ul>
+                        </div>
+                        <div class="page-toolbar">
+                        </div>
+                    </div>
+
+                    <asp:ContentPlaceHolder ID="cphContent" runat="Server">
+                    </asp:ContentPlaceHolder>
+
+                </div>
+            </div>
+
+        </div>
+        <!-- END CONTAINER -->
+
+        <!-- BEGIN FOOTER -->
+        <div class="page-footer">
+            <div class="page-footer-inner">
+                <b><%=DateTime.Now.Year %> &copy; Yash Bhatasana(170540107014)</b>
+            </div>
+            <div class="scroll-to-top">
+                <i class="icon-arrow-up"></i>
+            </div>
+        </div>
+        <!-- END FOOTER -->
+
+        <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+        <!-- BEGIN CORE PLUGINS -->
+        <!--[if lt IE 9]>
+            <script src="../../assets/global/plugins/respond.min.js"></script>
+            <script src="../../assets/global/plugins/excanvas.min.js"></script> 
+        <![endif]-->
+
+        <script src="<%=ResolveClientUrl("~/Default/assets/global/plugins/jquery.min.js") %>" type="text/javascript"></script>
+        <script src="<%=ResolveClientUrl("~/Default/assets/global/plugins/jquery-migrate.min.js") %>" type="text/javascript"></script>
+
+        <!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+        <script src="<%=ResolveClientUrl("~/Default/assets/global/plugins/jquery-ui/jquery-ui.min.js") %>" type="text/javascript"></script>
+        <script src="<%=ResolveClientUrl("~/Default/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js") %>" type="text/javascript"></script>
+
+
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <script src="<%=ResolveClientUrl("~/Default/assets/global/plugins/select2/select2.min.js") %>" type="text/javascript"></script>
+        <script src="<%= ResolveClientUrl("~/Default/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js") %>" type="text/javascript"></script>
+        <script src="<%= ResolveClientUrl("~/Default/assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js") %>" type="text/javascript"></script>
+        <script src="<%= ResolveClientUrl("~/Default/assets/global/plugins/clockface/js/clockface.js") %>" type="text/javascript"></script>
+        <script src="<%= ResolveClientUrl("~/Default/assets/global/plugins/bootstrap-daterangepicker/moment.min.js") %>" type="text/javascript"></script>
+        <script src="<%= ResolveClientUrl("~/Default/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js") %>" type="text/javascript"></script>
+        <script src="<%= ResolveClientUrl("~/Default/assets/global/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js") %>" type="text/javascript"></script>
+        <script src="<%= ResolveClientUrl("~/Default/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js") %>" type="text/javascript"></script>
+        <script src="<%= ResolveClientUrl("~/Default/assets/global/scripts/metronic.js") %>" type="text/javascript"></script>
+        <script src="<%= ResolveClientUrl("~/Default/assets/admin/layout/scripts/layout.js") %>" type="text/javascript"></script>
+        <script src="<%= ResolveClientUrl("~/Default/assets/admin/layout/scripts/quick-sidebar.js") %>" type="text/javascript"></script>
+        <script src="<%= ResolveClientUrl("~/Default/assets/admin/layout/scripts/demo.js") %>" type="text/javascript"></script>
+        <script src="<%= ResolveClientUrl("~/Default/assets/admin/pages/scripts/components-pickers.js") %>"></script>
+        <!-- END PAGE LEVEL PLUGINS -->
+
+        <script src="<%=ResolveClientUrl("~/Default/assets/global/plugins/bootstrap/js/bootstrap.min.js") %>" type="text/javascript"></script>
+        <script src="<%=ResolveClientUrl("~/Default/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js") %>" type="text/javascript"></script>
+        <script src="<%=ResolveClientUrl("~/Default/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js") %>" type="text/javascript"></script>
+        <script src="<%=ResolveClientUrl("~/Default/assets/global/plugins/jquery.blockui.min.js") %>" type="text/javascript"></script>
+        <script src="<%=ResolveClientUrl("~/Default/assets/global/plugins/jquery.cokie.min.js") %>" type="text/javascript"></script>
+        <script src="<%=ResolveClientUrl("~/Default/assets/global/plugins/uniform/jquery.uniform.min.js") %>" type="text/javascript"></script>
+        <script src="<%=ResolveClientUrl("~/Default/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js") %>" type="text/javascript"></script>
+        <!-- END CORE PLUGINS -->
+
+        <script src="<%=ResolveClientUrl("~/Default/assets/global/plugins/fullcalendar/lib/moment.min.js") %>" type="text/javascript"></script>
+        <script src="<%=ResolveClientUrl("~/Default/assets/global/plugins/fullcalendar/fullcalendar.min.js") %>" type="text/javascript"></script>
+        <script src="<%=ResolveClientUrl("~/Default/assets/global/scripts/metronic.js") %>" type="text/javascript"></script>
+        <script src="<%=ResolveClientUrl("~/Default/assets/admin/layout/scripts/layout.js") %>" type="text/javascript"></script>
+        <script src="<%=ResolveClientUrl("~/Default/assets/admin/layout/scripts/quick-sidebar.js") %>" type="text/javascript"></script>
+        <script src="<%=ResolveClientUrl("~/Default/assets/admin/layout/scripts/demo.js") %>" type="text/javascript"></script>
+        <script src="<%=ResolveClientUrl("~/Default/assets/admin/pages/scripts/index.js") %>" type="text/javascript"></script>
+        <script src="<%=ResolveClientUrl("~/Default/assets/admin/pages/scripts/tasks.js") %>" type="text/javascript"></script>
+
+        <script src="<%=ResolveClientUrl("~/Default/assets/global/plugins/fancybox/source/jquery.fancybox.pack.js") %>" type="text/javascript"></script>
+        <script src="<%=ResolveClientUrl("~/Default/assets/global/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js") %>" type="text/javascript"></script>
+        <script src="<%=ResolveClientUrl("~/Default/assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js") %>" type="text/javascript"></script>
+
+        <!-- BEGIN:File Upload Plugin JS files-->
+        <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
+        <script src="<%=ResolveClientUrl("~/Default/assets/global/plugins/jquery-file-upload/js/vendor/jquery.ui.widget.js") %>"></script>
+        <!-- The Templates plugin is included to render the upload/download listings -->
+        <script src="<%=ResolveClientUrl("~/Default/assets/global/plugins/jquery-file-upload/js/vendor/tmpl.min.js") %>"></script>
+        <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
+        <script src="<%=ResolveClientUrl("~/Default/assets/global/plugins/jquery-file-upload/js/vendor/load-image.min.js") %>"></script>
+        <!-- The Canvas to Blob plugin is included for image resizing functionality -->
+        <script src="<%=ResolveClientUrl("~/Default/assets/global/plugins/jquery-file-upload/js/vendor/canvas-to-blob.min.js") %>"></script>
+        <!-- blueimp Gallery script -->
+        <script src="<%=ResolveClientUrl("~/Default/assets/global/plugins/jquery-file-upload/blueimp-gallery/jquery.blueimp-gallery.min.js") %>"></script>
+        <!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
+        <script src="<%=ResolveClientUrl("~/Default/assets/global/plugins/jquery-file-upload/js/jquery.iframe-transport.js") %>"></script>
+        <!-- The basic File Upload plugin -->
+        <script src="<%=ResolveClientUrl("~/Default/assets/global/plugins/jquery-file-upload/js/jquery.fileupload.js") %>"></script>
+        <!-- The File Upload processing plugin -->
+        <script src="<%=ResolveClientUrl("~/Default/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-process.js") %>"></script>
+        <!-- The File Upload image preview & resize plugin -->
+        <script src="<%=ResolveClientUrl("~/Default/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-image.js") %>"></script>
+        <!-- The File Upload audio preview plugin -->
+        <script src="<%=ResolveClientUrl("~/Default/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-audio.js") %>"></script>
+        <!-- The File Upload video preview plugin -->
+        <script src="<%=ResolveClientUrl("~/Default/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-video.js") %>"></script>
+        <!-- The File Upload validation plugin -->
+        <script src="<%=ResolveClientUrl("~/Default/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-validate.js") %>"></script>
+        <!-- The File Upload user interface plugin -->
+        <script src="<%=ResolveClientUrl("~/Default/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-ui.js") %>"></script>
+        <!-- The main application script -->
+        <!-- The XDomainRequest Transport is included for cross-domain file deletion for IE 8 and IE 9 -->
+        <!--[if (gte IE 8)&(lt IE 10)]>
+    <script src="../../assets/global/plugins/jquery-file-upload/js/cors/jquery.xdr-transport.js"></script>
+    <![endif]-->
+        <!-- END:File Upload Plugin JS files-->
+        <!-- END: Page level plugins -->
+
+
+        <script>
+            jQuery(document).ready(function () {
+                Metronic.init(); // init metronic core components
+                Layout.init(); // init current layout
+                QuickSidebar.init(); // init quick sidebar
+                Demo.init(); // init demo features
+                ComponentsPickers.init();
+            });
+        </script>
+        <script type="text/javascript">
+            //setInterval("settime()", 1000);
+
+            function settime() {
+                var dateTime = new Date();
+                var hour = dateTime.getHours();
+                var minute = dateTime.getMinutes();
+                var second = dateTime.getSeconds();
+
+                if (minute < 10)
+                    minute = "0" + minute;
+
+                if (second < 10)
+                    second = "0" + second;
+
+                var ampm = hour >= 12 ? 'PM' : 'AM';
+                hour = hour % 12;
+                hour = hour ? hour : 12; // the hour '0' should be '12'
+                minute = minute < 10 ? minute : minute;
+
+                var time = "" + hour + ":" + minute + ":" + second + " " + ampm;
+
+                document.getElementById("clock").innerHTML = time;
+            }
+        </script>
+
+        <script>
+
+            jQuery(document).ready(function () {
+                //ComponentsFormTools.init();
+
+            });
+
+            $('select.multiselect2').select2({
+                allowClear: true
+            });
+
+            Page = Sys.WebForms.PageRequestManager.getInstance();
+            Page.add_beginRequest(OnBeginRequest);
+            Page.add_endRequest(endRequest);
+
+            function OnBeginRequest(sender, args) {
+                Metronic.blockUI({
+                    boxed: true
+                });
+            }
+
+            function endRequest(sender, args) {
+                Metronic.unblockUI();
+                $('select').select2({
+                    width: 'fixed'
+                });
+
+                $('.timepicker-no-seconds').timepicker({
+                    autoclose: true,
+                    minuteStep: 5,
+                    defaultTime: null
+                });
+
+                $('.timepicker').parent('.input-group').on('blur', '.input-group-btn', function (e) {
+                    e.preventDefault();
+                    $(this).parent('.input-group').find('.timepicker').timepicker('hideWidget');
+                });
+
+                $(".form_meridian_datetime").datetimepicker({
+                    isRTL: Metronic.isRTL(),
+                    format: "dd-mm-yyyy HH:ii P",
+                    showMeridian: true,
+                    autoclose: true,
+                    pickerPosition: (Metronic.isRTL() ? "bottom-right" : "bottom-left"),
+                    todayBtn: true,
+                    todayHighlight: true
+                });
+
+                $('.date-picker-nofuture').datepicker({
+                    startDate: "01-01-1900",
+                    endDate: "new date()",
+                    autoclose: true,
+                    todayHighlight: true
+                });
+                $('.date-picker-nopastdate').datepicker({
+                    startDate: "new date()",
+                    todayHighlight: true
+                });
+                $('.date-picker').datepicker({
+                    startDate: "01-01-1900",
+                    autoclose: true,
+                    todayHighlight: true
+                });
+                $('a.modalButton').on('click', function (e) {
+                    var src = $(this).attr('href');
+                    var target = $(this).attr('data-target');
+
+                    $(target + " iframe").attr({
+                        'src': src
+                    });
+                });
+
+                var initPickers = function () {
+                    //init date pickers
+                    $('.date-picker').datepicker({
+                        rtl: Metronic.isRTL(),
+                        autoclose: true,
+                        todayHighlight: true
+                    });
+                }
+
+                initPickers();
+                $('select.multiselect2').select2({
+                    allowClear: true
+                });
+
+                function closeModalAndRefreshPage() {
+                    $('.modal').modal('hide');
+                    location.reload();
+                }
+            }
+
+        </script>
+        <!-- END JAVASCRIPTS -->
+    </form>
+    <asp:ContentPlaceHolder ID="cphScripts" runat="server">
+    </asp:ContentPlaceHolder>
+</body>
+</html>

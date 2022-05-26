@@ -1,0 +1,95 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using DProject.BAL;
+using Microsoft.Reporting.WebForms;
+
+public partial class AdminPanel_LOCRPT_Project_RPT_PRJ_ProjectByTechnology : System.Web.UI.Page
+{
+    #region 10 0 Private Variables
+
+    private DataTable dtProjectListByTechnology;
+
+    private dsProject objdsProject = new dsProject();
+
+    #endregion 10 0 Private Variables
+
+    #region 11 0 LoadEvent
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if(!Page.IsPostBack)
+            ShowProjectListByTechnology();
+    }
+
+    #endregion 11 0 LoadEvent
+
+    #region 12 0 ShowProjectListByTechnology
+
+    private void ShowProjectListByTechnology()
+    {
+        PRJ_ProjectBAL balPRJ_Project = new PRJ_ProjectBAL();
+        dtProjectListByTechnology = balPRJ_Project.SelectAllReportByTechnology();
+        FillDataSet();
+    }
+
+    #endregion 12 0 ShowProjectListByTechnology
+
+    #region 13 0 FillDataSet
+
+    private void FillDataSet()
+    {
+        objdsProject.dtProjectListByTechnology.Clear();
+
+        foreach (DataRow dr in dtProjectListByTechnology.Rows)
+        {
+            dsProject.dtProjectListByTechnologyRow drProjectListByTechnology = objdsProject.dtProjectListByTechnology.NewdtProjectListByTechnologyRow();
+
+            if (!dr["GTUTeamNo"].Equals(System.DBNull.Value))
+                drProjectListByTechnology.GTUTeamNo = Convert.ToString(dr["GTUTeamNo"]);
+            
+            if (!dr["StudentName"].Equals(System.DBNull.Value))
+                drProjectListByTechnology.StudentName = Convert.ToString(dr["StudentName"]);
+
+            if (!dr["EnrollmentNo"].Equals(System.DBNull.Value))
+                drProjectListByTechnology.EnrollmentNo = Convert.ToString(dr["EnrollmentNo"]);
+
+            if (!dr["FacultyName"].Equals(System.DBNull.Value))
+                drProjectListByTechnology.ProjectTitle = Convert.ToString(dr["ProjectTitle"]);
+
+            if (!dr["FacultyName"].Equals(System.DBNull.Value))
+                drProjectListByTechnology.FacultyName = Convert.ToString(dr["FacultyName"]);
+
+            if (!dr["TechnologyName"].Equals(System.DBNull.Value))
+                drProjectListByTechnology.TechnologyName = Convert.ToString(dr["TechnologyName"]);
+
+            objdsProject.dtProjectListByTechnology.Rows.Add(drProjectListByTechnology);
+        }
+        SetReportParameters();
+
+        this.ReportViewer1.LocalReport.DataSources.Clear();
+        this.ReportViewer1.LocalReport.DataSources.Add(new ReportDataSource("dsProjectListByTechnology", (DataTable)objdsProject.dtProjectListByTechnology));
+    }
+
+    #endregion 13 0 FillDataSet
+
+    #region 14 0 SetReportParameters
+
+    private void SetReportParameters()
+    {
+        String UniversityName = "Gujarat Technological University";
+        String CollegeName = "Darshan Institute Of Engineering & Technology";
+        String ReportName = "Project List By Technology";
+        ReportParameter rpUniversityName = new ReportParameter("UniversityName", UniversityName);
+        ReportParameter rpCollegeName = new ReportParameter("CollegeName", CollegeName);
+        ReportParameter rpReportName = new ReportParameter("ReportName", ReportName);
+
+        this.ReportViewer1.LocalReport.SetParameters(new ReportParameter[] { rpUniversityName, rpCollegeName, rpReportName });
+    }
+
+    #endregion 14 0 SetReportParameters
+}
